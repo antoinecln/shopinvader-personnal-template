@@ -1,0 +1,36 @@
+---
+title: Header
+is_layout: false
+---
+
+{% block content %}
+
+<div class="container d-sm-none">
+    <div class="row">
+        {% for slide in contents.slides%}
+          <div class="col-12 p-sm-0 pt-3 pt-sm-3">
+            <img src="{{slide.picture.url}}" alt="" class="w-100">
+          </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% block header %}
+{% endblock %}
+<div class="container d-sm-none">
+    <div class="row">
+        {% for slide in contents.slides%}
+          <div class="col-12 p-sm-0 pt-3 pt-sm-3">
+            <img src="{{slide.picture.url}}" alt="" class="w-100">
+          </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% block main %}
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
+
+{% endblock %}

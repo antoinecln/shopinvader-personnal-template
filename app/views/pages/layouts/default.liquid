@@ -1,5 +1,5 @@
 ---
-title: Default layout
+title: Default Layout maison 
 is_layout: false
 ---
 {% if locale != default_locale %}
@@ -7,241 +7,40 @@ is_layout: false
 {% endif%}
 
 {% assign url_base =url_base | prepend: base_url | append:"/"%}
+
 <!DOCTYPE html>
-<html lang="{{locale}}">
-  <head>
-    <link rel="manifest" href="{% path_to manifest_json%}">
-    <meta charset="utf-8">
+<html>
+<head>
+  <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#17a2b8">
     <meta name="generator" content="ShopInvader" />
-    <script type="application/ld+json">
-    {
-      "@context": "http://schema.org",
-      "@type": "Organization",
-      "name": "{{site.name}}",
-      "url": "{{base_url}}",
-      "logo":  "{{site.metafields.theme.logo}}"
-    }
-    </script>
-    <script type='application/ld+json'>
-      {
-        "@context": "http://schema.org",
-        "@type": "WebSite",
-        "url": "{{base_url}}",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "{{base_url}}/search?q={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
-      }
-    </script>
-    {% block 'header_meta' %}
-      <link rel="canonical" href="{{base_url}}{% path_to page%}" />
-      {% seo %}
-      {% for locale_code in locales %}
-      <link rel="alternate" href="{% path_to page, locale: locale_code %}" hreflang="{{locale_code}}"/>
-      {% endfor %}
-    {% endblock %}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    <link rel="shortcut icon" href="{{ 'favicon.png' | theme_image_url }}">
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+        {{ 'application.css' | stylesheet_tag }}
+        {% block 'css' %}{% endblock %}
+        {% block 'javascripts_header' %}{% endblock %}
+</head>
+<body>
 
-    {{ 'application.css' | stylesheet_tag }}
 
-    {% block 'css' %}{% endblock %}
-    {% block 'javascripts_header' %}{% endblock %}
+<div class="main_container">
+  
+  	<header>
+  		{% include 'nav' %}
+  	</header>
 
-  </head>
-  <body>
-    <div class="main-loader d-none">
-      <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-      </svg>
-    </div>
-    <div class="page shadow">
-      <header>
-        {% include 'nav' %}
-      </header>
-      <main>
-        <div class="container-fluid">
-          {% include 'store_notifications' %}
-          {% block content %}
-          {% endblock %}
-        </div>
-      </main>
-      {% block 'footer' %}
-      {% capture 'background_category_footer' %}
-        {% editable_file 'banner-category-footer', fixed:'true' %}/images/banner-categories.jpg{% endeditable_file %}
-      {% endcapture %}
-      <footer class="bg-light w-100">
-        <div class="container-fluid">
-          <div class="row categories-list"  style="background-image:url({{background_category_footer}})">
-            <div class="col-12">
-              <div class="container">
-                <ul class="row  pt-2 pb-2 list-inline">
-                {%with_scope level: 0%}
-                  {% for category_lv1 in store.categories%}
-                  <li class="col-12 col-sm-6 col-md-4 pt-2 pb-4 pb-md-2list-inline-item m-0">
-                    <a href="{{category_lv1.url_key | prepend: url_base}}" class="h4 text-white font-weight-bold text-uppercase">
-                      {{category_lv1.name}}
-                    </a>
-                    <ul class="">
-                      {% for category_lv2 in category_lv1.childs%}
-                      <li class="">
-                        <a href="{{category_lv2.url_key | prepend: url_base}}" class="">
-                          {{category_lv2.name}}
-                        </a>
-                      </li>
-                      {% endfor %}
-                    </ul>
-                  </li>
-                  {% endfor %}
-                {% endwith_scope %}
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div class=" row store-advantage bg-dark text-uppercase text text-center text-light  pt-5 pb-5 d-none d-md-flex">
-            <div class="col-12">
-              <div class="container">
-                <div class="row">
-                  <div class="col-3 text-center ">
-                    <i class="fa fa-rocket fa-2x"></i>
-                    <div class="text-light pt-2 font-weight-bold">
-                      {{'store_advantage_shipping' | translate }}
-                    </div>
-                  </div>
-                  <div class="col-3 text-center">
-                    <i class="fas fa-undo fa-2x"></i>
-                    <div class="text-light pt-2 font-weight-bold">
-                      {{'store_advantage_return' | translate }}
-                    </div>
-                  </div>
-                  <div class="col-3 text-center">
-                    <i class="fa fa-tag text-light fa-2x"></i>
-                    <div class="text-light pt-2 font-weight-bold">
-                      {{'store_advantage_price' | translate }}
-                    </div>
-                  </div>
-                  <div class="col-3 text-center ">
-                    <i class="fa fa-phone-volume fa-2x"></i>
-                    <div class="text-light pt-2 font-weight-bold">
-                      {{'store_advantage_hotline' | translate }}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div class="container">
-          <div class="row">
-            <div class="col-6 pt-5">
-              <p class="text-dark">&copy; {{site.name}} {{ now | localized_date: '%Y' }} </p>
-              {% editable_text "footer_content", label: "Footer content", fixed: 'true', rows: 6, format:"html" %}
 
-              {% endeditable_text %}
-            </div>
-            <div class="col-6 text-right pt-4">
-              <img src="{% editable_file 'shopinvader_powered_by', fixed: 'true'%}images/powered-by-shopinvader-logo.png{% endeditable_file %}" alt="ShopInvader" class="img-fluid">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-12">
-              <a data-toggle="modal" href="#cookie-manage-modal">
-                {% editable_text "cookies_message_manage", label: "Cookies - message : manage", fixed: true, rows: 1, format:"raw" %}
-                Manage cookies
-                {% endeditable_text %}
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
+	
+{% block content %}
+{% endblock %}
 
-      {% endblock %}
-    </div>
+<div class="container">
 
-    <div class="modal fade" id="main-modal" tabindex="-1" role="dialog">
-      <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <div class="modal-title text-1xl"></div>
-          </div>
-          <div class="modal-body"></div>
-          <div class="modal-footer"></div>
-        </div>
-      </div>
-    </div>
-    <div id="product-modal-add" class="d-none" data-shopinvader-container>.
-      {% if params.addtocart_product_id %}
-        {% assign product_id = params.addtocart_product_id | round %}
-        <div class="title">
-          {{ 'cart_item_added' | translate }}
-        </div>
-        <div class="content">
-          <div class="">
-            <div class="row">
-              <div class="col-12">
-                {% include 'cart_list' with cart: store.cart, readonly: true %}
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-12 col-sm-6 text-center text-sm-left">
-                <a href="{{product.url_key | prepend: url_base}}" class="btn btn-light btn-lg">{{"cart_continue_shopping" | translate }}</a>
-              </div>
-              <div class="col-12 col-sm-6 text-center text-sm-right pt-2 pt-sm-0">
-                <a href="{% path_to 'cart_index' %}" class="btn btn-primary btn-lg">{{"cart_checkout" | translate }} </a>
-              </div>
-            </div>
-          {% if product and product.relateds.cross_sell != null%}
-            <div class="row">
-              <div class="col-lg-12">
-                <h2>{{'product_related_title' | translate }}</h2>
-              </div>
-            </div>
-            <div class="row">
-              {% for cross_seller in product.relateds.cross_sell %}
-                <div class="col-6 col-sm-3 col-xl-2">
-                {% with_scope objectID: [cross_seller.id]%}
-                  {% include 'product_thumbnail' with product: store.products.first%}
-                {% endwith_scope%}
-                </div>
-              {% endfor %}
-            </div>
-          {% endif %}
-          </div>
-        </div>
-      {% endif %}
-    </div>
+</div>
 
-    <div class="modal fade" id="generic-error-message" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header bg-warning">
-            <div class="h5">
-              {% editable_text "generic_error_message_title", label: "Generic Error Message : title", fixed: 'true', rows: 1, format:"raw" %}
-              <i class="fa fa-exclamation-triangle"></i>  Oops! Something went wrong!
-              {% endeditable_text %}
-            </div>
-          </div>
-          <div class="modal-body">
-            {% editable_text "generic_error_message_content", label: "Generic Error Message : content", fixed: 'true', rows: 10, format:"html" %}
-            <b>The application has encountered an unknown error.</b>
-            <p>
-            It doesn't appear to have affected your data, but our technical staff
-            have been automatically notified and will be looking into this with
-            the utmost urgency.
-            </p>
-            {% endeditable_text %}
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">{{'close' | translate}}</button>
-          </div>
-        </div>
-      </div>
-    </div>
+
     {{ 'popper.min.js' | javascript_tag }}
     {{ 'jquery.min.js' | javascript_tag }}
     {{ 'jquery.slidereveal.min.js' | javascript_tag }}
@@ -250,16 +49,6 @@ is_layout: false
     {{ 'bootstrap4.min.js' | javascript_tag }}
     {{ 'application.js' | javascript_tag }}
 
-    {% block 'javascripts_algolia', short_name: true %}
-      {% include 'algolia_init' %}
-      <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearchLite.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/autocomplete.js/0/autocomplete.jquery.min.js"></script>
-      {{ 'search_autocomplete.js' | javascript_tag }}
-    {% endblock %}
-    {% block 'javascripts', short_name: true %}
-    {% endblock %}
-    {% include 'cookies_manager' %}
 
-  </body>
+</body>
 </html>

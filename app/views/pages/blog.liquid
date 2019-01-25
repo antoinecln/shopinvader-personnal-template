@@ -1,5 +1,5 @@
 ---
-title: Blog
+title: Guides d'achats
 slug: blog
 position: 99
 listed: true
@@ -12,7 +12,7 @@ handle: blog
 <div class="container pt-4">
   <div class="row">
     <div class="col-12">
-      <h1>{% editable_text title %}Blog{% endeditable_text %}</h1>
+      <h1>{% editable_text title %}Guides d'achats{% endeditable_text %}</h1>
     </div>
   </div>
   <div class="row">
@@ -22,7 +22,7 @@ handle: blog
         <div class="card-body">
           <h4 class="card-title">{{post.name}}</h4>
           <div class="">
-            <strong>{{post.date | format_date}}</strong>  {{post.post_author}}
+            <strong>{{post.date | format_date }}</strong>  {{post.post_author}}
           </div>
           {% for posts_groups in post.groups%}
             <span class="label label-primary">{{posts_groups.name}}</span>

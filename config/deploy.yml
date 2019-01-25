@@ -3,3 +3,9 @@ test:
   handle: shopinvader
   email: demo@shopinvader.com
   api_key: d49cd50f6f0d2b163f48fc73cb249f0244c37074
+
+development:
+  host: https://www.saaslys.eu
+  handle: mirthful-spring-5119
+  email: antoine@ebii.fr
+  api_key: c1b7ce5b1d718b0417f63e9db0bb0184d1e43273

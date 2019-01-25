@@ -11,7 +11,7 @@ name: "Shopinvader demo (Shopinvader Demo)"
 # The locale listed first is the site's default locale
 # Locales are specified using ISO language codes
 # Possible locales include: en, de, fr, pl, pt-BR, it, nl, nb, es, ru, et, ja, zh-CN
-locales: [en, fr]
+locales: [en]
 
 seo_title: Shopinvader demo | May the discount be with you
 meta_keywords: "the Shopinvader  demo web store"
@@ -31,12 +31,12 @@ metafields:
     logo: "/samples/assets/shop-logo.png"
     noimage: "/samples/assets/no-image.jpg"
   algolia:
-    application_id: 'GH41KF783Z'
-    api_key: "75575d3910b3ac55428bcdfa1b0e6784"
+    application_id: "F6DMMHW3Q1"
+    api_key: "b790d3e1d955173af53461cc1e981f15"
     indices: >
       [
-        { "name": "categories", "index": "demo_site_10_category" },
-        { "name": "products", "index": "demo_site_10_product" }
+        { "name": "categories", "index": "demo_algolia_backend_shopinvader_category" },
+        { "name": "products", "index": "demo_algolia_backend_shopinvader_variant" }
       ]
     routes: >
       [
